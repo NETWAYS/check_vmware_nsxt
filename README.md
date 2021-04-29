@@ -84,14 +84,14 @@ number_of_gi_protected_hosts=0%;70;100;0;100
 
 ## API Documentation
 
-https://docs.vmware.com/en/VMware-NSX-T-Data-Center
+[VMware-NSX-T-Data-Center docs](https://docs.vmware.com/en/VMware-NSX-T-Data-Center)
 
-General API Documentation: https://code.vmware.com/apis/1083/nsx-t
+General API Documentation: [code.vmware.com](https://code.vmware.com/apis/1083/nsx-t)
 
 Endpoints the check uses:
-* https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_ReadClusterStatus.html
-* https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetAlarms.html
-* https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetProtonCapacityUsage.html
+* [/api/v1/cluster-status](https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_ReadClusterStatus.html)
+* [/api/v1/alarms](https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetAlarms.html)
+* [/api/v1/capacity/usage](https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetProtonCapacityUsage.html)
 
 ## License
 
