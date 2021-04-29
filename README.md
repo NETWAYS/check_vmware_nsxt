@@ -8,6 +8,26 @@ Supported Modes:
 * alarms - Retrieve and display open alarms from the API
 * capacity-usage - Retrieves and checks capacity indicators from the API
 
+## Installation
+
+Python 3 is required, and you need the Python [requests](https://pypi.org/project/requests/) module.
+
+Please prefer installation via system packages like `python3-requests`.
+
+Alternatively you can install with pip:
+
+    pip3 install requests
+
+Make sure to modify the shebang to your environment, one of the following should be fine.
+
+    #!/usr/bin/env python3
+    #!/usr/bin/python3
+
+Then copy the file to your plugin dir:
+
+    cp check_vmware_nsxt.py /usr/lib*/nagios/plugins/check_vmware_nsxt
+    chmod 755 /usr/lib*/nagios/plugins/check_vmware_nsxt
+
 ## Usage
 
 ```
