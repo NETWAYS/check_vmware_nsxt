@@ -328,7 +328,12 @@ class CapacityUsage(CheckResult):
     def build_status(self):
         states = []
 
-        # TODO: check last_updated_timestamp
+        now = datetime.datetime.now()
+        last_updated = build_datetime(self.data['meta_info']['last_updated_timestamp'])
+
+        if (now-last_updated).total_seconds() / 60 > 5:
+            states.append(WARNING)
+            self.summary.append("last update older than 5 minutes")
 
         for usage in self.data['capacity_usage']:
             severity = usage['severity'] # INFO, WARNING, CRITICAL, ERROR
