@@ -28,6 +28,8 @@ Then copy the file to your plugin dir:
     cp check_vmware_nsxt.py /usr/lib*/nagios/plugins/check_vmware_nsxt
     chmod 755 /usr/lib*/nagios/plugins/check_vmware_nsxt
 
+Also see the [Icinga 2 example command](icinga2/command.conf).
+
 ## Usage
 
 ```
