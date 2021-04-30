@@ -40,6 +40,8 @@ from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 
+VERSION = '0.1.0'
+
 OK       = 0
 WARNING  = 1
 CRITICAL = 2
@@ -393,6 +395,8 @@ def parse_args():
 
     args.add_argument('--mode', '-m', help='Check mode', required=True)
 
+    args.add_argument('--version', '-V', help='Print version', action='store_true')
+
     return args.parse_args()
 
 
@@ -400,6 +404,10 @@ def main():
     fix_tls_cert_store()
 
     args = parse_args()
+
+    if args.version:
+        print("check_vmware_nsxt version %s" % VERSION)
+        return 0
 
     client = Client(args.api, args.username, args.password)
 
