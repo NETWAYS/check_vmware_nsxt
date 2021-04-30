@@ -167,7 +167,7 @@ class CheckResult:
         if len(self.output) > 0:
             output += "\n\n" + "\n".join(self.output)
         if len(self.perfdata) > 0:
-            output += "\n| " + "\n".join(self.perfdata)
+            output += "\n| " + " ".join(self.perfdata)
 
         try:
             state = STATES[self.state]
@@ -317,13 +317,16 @@ class CapacityUsage(CheckResult):
 
         for state in states:
             self.summary.append("%d %s" % (states[state], state.lower()))
-        else:
+
+        if len(states) == 0:
             self.summary.append("no usages")
 
         self.summary.append("last update: " + time_iso(self.data['meta_info']['last_updated_timestamp']))
 
     def build_status(self):
         states = []
+
+        # TODO: check last_updated_timestamp
 
         for usage in self.data['capacity_usage']:
             severity = usage['severity'] # INFO, WARNING, CRITICAL, ERROR
