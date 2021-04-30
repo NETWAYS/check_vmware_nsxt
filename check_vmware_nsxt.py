@@ -30,6 +30,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+import os
 import sys
 import argparse
 import logging
@@ -65,6 +66,7 @@ def fix_tls_cert_store():
         system_ca_store = ssl.get_default_verify_paths().cafile
         if os.stat(system_ca_store).st_size > 0:
             requests.utils.DEFAULT_CA_BUNDLE_PATH = system_ca_store
+            requests.adapters.DEFAULT_CA_BUNDLE_PATH = system_ca_store
     except:
         pass
 
