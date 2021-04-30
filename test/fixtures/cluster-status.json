@@ -1,0 +1,650 @@
+{
+  "cluster_id" : "UUID",
+  "mgmt_cluster_status" : {
+    "status" : "STABLE",
+    "online_nodes" : [ {
+      "uuid" : "UUID",
+      "mgmt_cluster_listen_ip_address" : "10.0.0.x"
+    }, {
+      "uuid" : "UUID",
+      "mgmt_cluster_listen_ip_address" : "10.0.0.x"
+    }, {
+      "uuid" : "UUID",
+      "mgmt_cluster_listen_ip_address" : "10.0.0.x"
+    } ]
+  },
+  "control_cluster_status" : {
+    "status" : "STABLE"
+  },
+  "detailed_cluster_status" : {
+    "cluster_id" : "UUID",
+    "overall_status" : "STABLE",
+    "groups" : [ {
+      "group_id" : "UUID",
+      "group_type" : "DATASTORE",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "CLUSTER_BOOT_MANAGER",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "CONTROLLER",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "ShardingService",
+        "leader_uuid" : "UUID",
+        "lease_version" : 217494
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "MANAGER",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "ActivityPurger",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "NSGROUP_MEMBER_EVENT_PURGE_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "ShardingMaster",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "NSGROUP_MEMBERSHIP_STATUS_EVENT_PURGE_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "DISCOVERY_MESSAGING_SINGLETON_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "TraceflowCacheManager",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "CentralConfigDcnHandleLeader",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "AutoHealthCheckMonitor",
+        "leader_uuid" : "UUID",
+        "lease_version" : 5087
+      }, {
+        "service_name" : "PersistentQueueProcessor",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "CoordinatedDataCollectionLeader",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "INTELLIGENCE_ALARM_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "LiveTraceMessageManager",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "LicensingShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "HealthCheckRequestMonitor",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "CapacityAlarmsShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "SHA_APPLIANCE_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "NSGROUP_MEMBER_CACHE_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "PROTON_INTELLIGENCE_AGENT_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "INTELLIGENCE_CERTIFICATE_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "ShaStableDataChecker",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "SERVICE_CONFIG_PRECEDENCE_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260886
+      }, {
+        "service_name" : "CentralConfigProcessor",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "ManagementShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "MirrorStackMonitorImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "QuartzSetupServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "StateSyncShardingCoordinator",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      }, {
+        "service_name" : "RealizationServiceMaintenanceManager",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260884
+      }, {
+        "service_name" : "ManualHealthCheckMonitor",
+        "leader_uuid" : "UUID",
+        "lease_version" : 260885
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "POLICY",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "POLICY_SVC_FIREWALL_SCHEDULER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_POLICY_FQDN_ANALYSIS_CONFIG_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_CVX_SECURITY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "ActivityPurger",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IDS_SECTION_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "UUID",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "ShardingMaster",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "DISCOVERY_MESSAGING_SINGLETON_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_INITIALIZER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIX_L2_GLOBAL_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_ROUTING",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IP_DISCOVERY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_POLICY_SERVICE_INSERTION",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_CONTEXT_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_FIREWALL",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_POLICY_SERVICE_INSERTION_EW",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIXDFWCOLLECTORPROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IDS_SIGNATURES_COMP_FILE_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_LM_SITE_SPAN",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_GLOBAL",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIXSWITCHCOLLECTION",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_SEGMENT",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_SECURITY_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIX_L2_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_PORTMIRRORINGPROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_REDIRECTION_FIREWALL",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IDS_STANDALONE_HOST_CONFIG",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "ManagementShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_TIER0",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_TIER1",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_POLICY_URL_CATEGORIZATION_CONFIG_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_BYOD_POLICY_SERVICE_INSERTION",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_GROUPING",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "LM_CONSUMER_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_DISCOVERY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_FLOOD_PROTECTION_PROFILES_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_QOS_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_VPN",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_INTELLIGENCE_AGENT_SERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_DFW_SESSION_TIMER_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIX_DFW_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_PORTMIRRORINGINSTANCE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_GENERAL_SECURITY_PROFILES_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "LicensingShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_MAC_DISCOVERY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IDS_PROFILE_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "ENFORCEMENT_POINT_RELOAD_TASK",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_CONNECTIVITY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_POLICY_GUEST_INTROSPECTION",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_DFW_EXCLUDE_LIST",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "UUID",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "CapacityAlarmsShardingServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIX_DFW_GROUP_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "LM_NOTIFICATION_MANAGER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_FORWARDING",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_TAG_BULK_OPERATION",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_FIREWALL_CPU_MEMORY_THRESHOLDS_PROFILE_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149016
+      }, {
+        "service_name" : "POLICY_SVC_CERTIFICATE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_EDGE_FIREWALL",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_FIREWALL_IDENTITY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPFIX_L2_COLLECTOR_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_GATEWAY_QOS_PROFILE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_LOADBALANCER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "QuartzSetupServiceImpl",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_SESSION_TIMER_PROFILES_PROVIDER",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "ALARMS_REFRESH_TASK",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_NATRULE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_DNS",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_METADATA_PROXY",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_IPAM",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      }, {
+        "service_name" : "POLICY_SVC_NSSERVICE",
+        "leader_uuid" : "UUID",
+        "lease_version" : 149017
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "HTTPS",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "api",
+        "leader_uuid" : "UUID",
+        "lease_version" : 217314
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "ASYNC_REPLICATOR",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "site-manager",
+        "leader_uuid" : "UUID",
+        "lease_version" : 220007
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "MONITORING",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "monitoring",
+        "leader_uuid" : "UUID",
+        "lease_version" : 220002
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "IDPS_REPORTING",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ {
+        "service_name" : "idps-reporting",
+        "leader_uuid" : "UUID",
+        "lease_version" : 220007
+      } ]
+    }, {
+      "group_id" : "UUID",
+      "group_type" : "CORFU_NONCONFIG",
+      "group_status" : "STABLE",
+      "members" : [ {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      }, {
+        "member_uuid" : "UUID",
+        "member_status" : "UP",
+        "member_fqdn" : "nodeX.example.com",
+        "member_ip" : "10.0.0.x"
+      } ],
+      "leaders" : [ ]
+    } ]
+  }
+}

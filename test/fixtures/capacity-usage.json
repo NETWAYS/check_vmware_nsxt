@@ -1,0 +1,262 @@
+{
+  "capacity_usage" : [ {
+    "usage_type" : "NUMBER_OF_NAT_RULES",
+    "display_name" : "System-wide NAT rules",
+    "current_usage_count" : 0,
+    "max_supported_count" : 25000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_SI_RULES",
+    "display_name" : "Network Introspection Rules",
+    "current_usage_count" : 1,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.01,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_GI_PROTECTED_HOSTS",
+    "display_name" : "System-wide Endpoint Protection Enabled Hosts",
+    "current_usage_count" : 0,
+    "max_supported_count" : 256,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_PREPARED_HOSTS",
+    "display_name" : "Hypervisor Hosts",
+    "current_usage_count" : 18,
+    "max_supported_count" : 1024,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 1.75,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_FIREWALL_RULES",
+    "display_name" : "System-wide Firewall Rules",
+    "current_usage_count" : 81,
+    "max_supported_count" : 100000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.08,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_DHCP_IP_POOLS",
+    "display_name" : "System-wide DHCP Pools",
+    "current_usage_count" : 0,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_EDGE_NODES",
+    "display_name" : "System-wide Edge Nodes",
+    "current_usage_count" : 10,
+    "max_supported_count" : 320,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 3.12,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_ACTIVE_DIRECTORY_DOMAINS",
+    "display_name" : "Active Directory Domains (Identity Firewall)",
+    "current_usage_count" : 0,
+    "max_supported_count" : 4,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_VCENTER_CLUSTERS",
+    "display_name" : "vSphere Clusters Prepared for NSX",
+    "current_usage_count" : 4,
+    "max_supported_count" : 128,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 3.12,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_PREFIX_LIST",
+    "display_name" : "Prefix-lists",
+    "current_usage_count" : 20,
+    "max_supported_count" : 500,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 4.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_LOGICAL_SWITCHES",
+    "display_name" : "Logical Switches",
+    "current_usage_count" : 12,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.12,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_LOGICAL_PORTS",
+    "display_name" : "System-wide Logical Switch Ports",
+    "current_usage_count" : 145,
+    "max_supported_count" : 25000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.58,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_ACTIVE_DIRECTORY_GROUPS",
+    "display_name" : "Active Directory Groups (Identity Firewall)",
+    "current_usage_count" : 0,
+    "max_supported_count" : 100000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_DFW_RULES",
+    "display_name" : "Distributed Firewall Rules",
+    "current_usage_count" : 75,
+    "max_supported_count" : 100000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.07,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_GI_PROTECTED_VMS",
+    "display_name" : "System-wide Endpoint Protection Enabled Virtual Machines",
+    "current_usage_count" : 0,
+    "max_supported_count" : 7500,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_DFW_SECTIONS",
+    "display_name" : "Distributed Firewall Sections",
+    "current_usage_count" : 23,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.23,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_GROUPS_BASED_ON_IP_SETS",
+    "display_name" : "Groups Based on IP Sets",
+    "current_usage_count" : 37,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.37,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_EDGE_CLUSTERS",
+    "display_name" : "Edge Clusters",
+    "current_usage_count" : 3,
+    "max_supported_count" : 160,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 1.87,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_TIER1_WITH_NAT_RULE",
+    "display_name" : "Tier-1 Logical Routers with NAT Enabled",
+    "current_usage_count" : 0,
+    "max_supported_count" : 4000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_FIREWALL_SECTIONS",
+    "display_name" : "System-wide Firewall Sections",
+    "current_usage_count" : 29,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.29,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_SI_SECTIONS",
+    "display_name" : "Network Introspection Sections",
+    "current_usage_count" : 1,
+    "max_supported_count" : 500,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.2,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_NSGROUP",
+    "display_name" : "Groups",
+    "current_usage_count" : 74,
+    "max_supported_count" : 20000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.37,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_TIER1_ROUTERS",
+    "display_name" : "Tier-1 Logical Routers",
+    "current_usage_count" : 4,
+    "max_supported_count" : 4000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.1,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_IPSETS",
+    "display_name" : "IP Sets",
+    "current_usage_count" : 37,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.37,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_SI_SERVICE_CHAINS",
+    "display_name" : "Network Introspection Service Chains",
+    "current_usage_count" : 0,
+    "max_supported_count" : 24,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_SI_SERVICE_PATHS",
+    "display_name" : "Network Introspection Service Paths",
+    "current_usage_count" : 0,
+    "max_supported_count" : 4000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_TIER0_ROUTERS",
+    "display_name" : "Tier-0 Logical Routers",
+    "current_usage_count" : 2,
+    "max_supported_count" : 160,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 1.25,
+    "severity" : "INFO"
+  }, {
+    "usage_type" : "NUMBER_OF_DHCP_SERVERS",
+    "display_name" : "DHCP Server Instances",
+    "current_usage_count" : 0,
+    "max_supported_count" : 10000,
+    "min_threshold_percentage" : 70.0,
+    "max_threshold_percentage" : 100.0,
+    "current_usage_percentage" : 0.0,
+    "severity" : "INFO"
+  } ],
+  "meta_info" : {
+    "last_updated_timestamp" : 1619774260161,
+    "min_global_threshold_percentage" : 70.0,
+    "max_global_threshold_percentage" : 100.0
+  },
+  "unreported_usage_types" : [ ],
+  "_protection" : "NOT_PROTECTED"
+}
