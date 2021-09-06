@@ -88,7 +88,7 @@ class Client:
 
     API_PREFIX = '/api/v1/'
 
-    def __init__(self, api, username, password, logger=None):
+    def __init__(self, api, username, password, logger=None, verify=True):
         # TODO: parse and validate url?
 
         self.api = api
@@ -114,7 +114,7 @@ class Client:
         self.logger.debug("starting API %s request from: %s", method, url)
 
         try:
-            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password))
+            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=verify)
         except requests.exceptions.RequestException as e:
             raise CriticalException(e)
 
@@ -397,6 +397,8 @@ def parse_args():
 
     args.add_argument('--version', '-V', help='Print version', action='store_true')
 
+    args.add_argument('--insecure', help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
+
     return args.parse_args()
 
 
@@ -409,7 +411,7 @@ def main():
         print("check_vmware_nsxt version %s" % VERSION)
         return 0
 
-    client = Client(args.api, args.username, args.password)
+    client = Client(args.api, args.username, args.password, verify=args.insecure)
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()
