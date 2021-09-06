@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# coding:utf-8
 """
 Icinga check plugin for VMware NSX-T
 
