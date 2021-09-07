@@ -94,6 +94,7 @@ class Client:
         self.api = api
         self.username = username
         self.password = password
+        self.verify = verify
 
         if logger is None:
             logger = logging.getLogger()
