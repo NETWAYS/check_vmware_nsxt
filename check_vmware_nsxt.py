@@ -406,7 +406,7 @@ def main():
     fix_tls_cert_store()
 
     args = parse_args()
-    if args.verify == False:
+    if args.insecure == False:
         import urllib3
         urllib3.disable_warnings()
 
