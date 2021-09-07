@@ -114,7 +114,7 @@ class Client:
         self.logger.debug("starting API %s request from: %s", method, url)
 
         try:
-            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=verify)
+            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=self.verify)
         except requests.exceptions.RequestException as e:
             raise CriticalException(e)
 
@@ -406,6 +406,9 @@ def main():
     fix_tls_cert_store()
 
     args = parse_args()
+    if args.verify == False:
+        import urllib3
+        urllib3.disable_warnings()
 
     if args.version:
         print("check_vmware_nsxt version %s" % VERSION)
