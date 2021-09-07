@@ -41,7 +41,7 @@ from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 OK       = 0
 WARNING  = 1
@@ -89,12 +89,13 @@ class Client:
 
     API_PREFIX = '/api/v1/'
 
-    def __init__(self, api, username, password, logger=None):
+    def __init__(self, api, username, password, logger=None, verify=True):
         # TODO: parse and validate url?
 
         self.api = api
         self.username = username
         self.password = password
+        self.verify = verify
 
         if logger is None:
             logger = logging.getLogger()
@@ -115,7 +116,7 @@ class Client:
         self.logger.debug("starting API %s request from: %s", method, url)
 
         try:
-            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password))
+            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=self.verify)
         except requests.exceptions.RequestException as e:
             raise CriticalException(e)
 
@@ -398,6 +399,8 @@ def parse_args():
 
     args.add_argument('--version', '-V', help='Print version', action='store_true')
 
+    args.add_argument('--insecure', help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
+
     return args.parse_args()
 
 
@@ -405,12 +408,15 @@ def main():
     fix_tls_cert_store()
 
     args = parse_args()
+    if args.insecure:
+        import urllib3
+        urllib3.disable_warnings()
 
     if args.version:
         print("check_vmware_nsxt version %s" % VERSION)
         return 0
 
-    client = Client(args.api, args.username, args.password)
+    client = Client(args.api, args.username, args.password, verify=(not args.insecure))
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()

@@ -43,6 +43,7 @@ optional arguments:
   --password PASSWORD, -p PASSWORD
                         Password for Basic Auth
   --mode MODE, -m MODE  Check mode
+  --insecure            Do not verify TLS certificate. Be careful with this option, please
 ```
 
 ```
