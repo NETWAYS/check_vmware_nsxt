@@ -40,7 +40,7 @@ from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 OK       = 0
 WARNING  = 1
