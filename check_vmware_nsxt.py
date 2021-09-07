@@ -407,7 +407,7 @@ def main():
     fix_tls_cert_store()
 
     args = parse_args()
-    if args.insecure == False:
+    if args.insecure:
         import urllib3
         urllib3.disable_warnings()
 
@@ -415,7 +415,7 @@ def main():
         print("check_vmware_nsxt version %s" % VERSION)
         return 0
 
-    client = Client(args.api, args.username, args.password, verify=args.insecure)
+    client = Client(args.api, args.username, args.password, verify=(not args.insecure))
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()
