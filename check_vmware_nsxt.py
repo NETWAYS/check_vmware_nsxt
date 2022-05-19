@@ -41,7 +41,7 @@ from requests.auth import HTTPBasicAuth
 from urllib.parse import urljoin
 
 
-VERSION = '0.1.1'
+VERSION = '0.1.2'
 
 OK       = 0
 WARNING  = 1
@@ -89,13 +89,14 @@ class Client:
 
     API_PREFIX = '/api/v1/'
 
-    def __init__(self, api, username, password, logger=None, verify=True):
+    def __init__(self, api, username, password, logger=None, verify=True, max_age=5):
         # TODO: parse and validate url?
 
         self.api = api
         self.username = username
         self.password = password
         self.verify = verify
+        self.max_age = max_age
 
         if logger is None:
             logger = logging.getLogger()
@@ -150,7 +151,7 @@ class Client:
         """
         GET and build CapacityUsage
         """
-        return CapacityUsage(self.request('capacity/usage'))
+        return CapacityUsage(self.request('capacity/usage'), self.max_age)
 
 
 class CheckResult:
@@ -285,9 +286,10 @@ class CapacityUsage(CheckResult):
     https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetProtonCapacityUsage.html
     """
 
-    def __init__(self, data):
+    def __init__(self, data, max_age):
         super().__init__()
         self.data = data
+        self.max_age = max_age
 
     def build_output(self):
         states = {}
@@ -335,9 +337,9 @@ class CapacityUsage(CheckResult):
         now = datetime.datetime.now()
         last_updated = build_datetime(self.data['meta_info']['last_updated_timestamp'])
 
-        if (now-last_updated).total_seconds() / 60 > 5:
+        if (now-last_updated).total_seconds() / 60 > self.max_age:
             states.append(WARNING)
-            self.summary.append("last update older than 5 minutes")
+            self.summary.append("last update older than %s minutes" % (self.max_age))
 
         for usage in self.data['capacity_usage']:
             severity = usage['severity'] # INFO, WARNING, CRITICAL, ERROR
@@ -397,6 +399,8 @@ def parse_args():
 
     args.add_argument('--mode', '-m', help='Check mode', required=True)
 
+    args.add_argument('--max-age', '-M', help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
+
     args.add_argument('--version', '-V', help='Print version', action='store_true')
 
     args.add_argument('--insecure', help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
@@ -416,7 +420,7 @@ def main():
         print("check_vmware_nsxt version %s" % VERSION)
         return 0
 
-    client = Client(args.api, args.username, args.password, verify=(not args.insecure))
+    client = Client(args.api, args.username, args.password, verify=(not args.insecure), max_age=int(args.max_age))
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()
