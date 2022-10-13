@@ -43,6 +43,9 @@ optional arguments:
   --password PASSWORD, -p PASSWORD
                         Password for Basic Auth
   --mode MODE, -m MODE  Check mode
+  --max-age MAX_AGE, -M MAX_AGE
+                        Max age in minutes for capacity usage updates. Defaults to 5
+  --version, -V         Print version
   --insecure            Do not verify TLS certificate. Be careful with this option, please
 ```
 
