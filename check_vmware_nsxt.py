@@ -35,18 +35,20 @@ import os
 import sys
 import argparse
 import logging
-import requests
 import datetime
-from requests.auth import HTTPBasicAuth
+import ssl
 from urllib.parse import urljoin
+import urllib3
+import requests
+from requests.auth import HTTPBasicAuth
 
 
 VERSION = '0.1.2'
 
-OK       = 0
-WARNING  = 1
+OK = 0
+WARNING = 1
 CRITICAL = 2
-UNKNOWN  = 3
+UNKNOWN = 3
 
 STATES = {
     OK: "OK",
@@ -63,7 +65,6 @@ def fix_tls_cert_store():
     See https://github.com/psf/requests/issues/2966
     Inspired by https://github.com/psf/requests/issues/2966#issuecomment-614323746
     """
-    import ssl
 
     try:
         system_ca_store = ssl.get_default_verify_paths().cafile
@@ -78,8 +79,6 @@ class CriticalException(Exception):
     """
     Provide an exception that will cause the check to exit critically with an error
     """
-
-    pass
 
 
 class Client:
@@ -103,8 +102,7 @@ class Client:
 
         self.logger = logger
 
-
-    def request(self, url, method='GET', **kwargs):
+    def request(self, url, method='GET'):
         """
         Basic JSON request handling
 
@@ -118,8 +116,8 @@ class Client:
 
         try:
             response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=self.verify)
-        except requests.exceptions.RequestException as e:
-            raise CriticalException(e)
+        except requests.exceptions.RequestException as req_exc:
+            raise CriticalException(req_exc)
 
         if response.status_code != 200:
             raise CriticalException('Request to %s was not successful: %s' % (request_url, response.status_code))
@@ -129,23 +127,20 @@ class Client:
         except Exception as e:
             raise CriticalException('Could not decode API JSON: ' + str(e))
 
-
     def get_cluster_status(self):
         """
         GET and build ClusterStatus
         """
         return ClusterStatus(self.request('cluster/status'))
 
-
     def get_alarms(self):
         """
         GET and build Alarms
         """
         status = "OPEN"
-        #status = "RESOLVED" # for testing
+        # status = "RESOLVED" # for testing
         result = self.request('alarms?page_size=100&status=%s&sort_ascending=false' % status)
         return Alarms(result['results'])
-
 
     def get_capacity_usage(self):
         """
@@ -155,6 +150,9 @@ class Client:
 
 
 class CheckResult:
+    """
+    CheckResult class, stores output, perfdata and state
+    """
     def __init__(self):
         self.state = -1
         self.summary = []
@@ -162,7 +160,7 @@ class CheckResult:
         self.perfdata = []
 
     def build_output(self):
-        raise NotImplemented("build_output not implemented in %s" % type(self))
+        raise NotImplementedError("build_output not implemented in %s" % type(self))
 
     def get_output(self):
         if len(self.summary) == 0:
@@ -184,7 +182,7 @@ class CheckResult:
         return "[%s] " % state + output
 
     def build_status(self):
-        raise NotImplemented("build_status not implemented in %s" % type(self))
+        raise NotImplementedError("build_status not implemented in %s" % type(self))
 
     def get_status(self):
         if self.state < 0:
@@ -266,12 +264,11 @@ class Alarms(CheckResult):
         for state in states:
             self.summary.append("%d %s" % (states[state], state.lower()))
 
-
     def build_status(self):
         states = []
 
         for alarm in self.data:
-            state = WARNING if alarm['severity'] in ['MEDIUM', 'LOW'] else CRITICAL # CRITICAL, HIGH
+            state = WARNING if alarm['severity'] in ['MEDIUM', 'LOW'] else CRITICAL  # CRITICAL, HIGH
             states.append(state)
 
         if len(states) > 0:
@@ -295,7 +292,7 @@ class CapacityUsage(CheckResult):
         states = {}
 
         for usage in self.data['capacity_usage']:
-            severity = usage['severity'] # INFO, WARNING, CRITICAL, ERROR
+            severity = usage['severity']  # INFO, WARNING, CRITICAL, ERROR
 
             if severity in states:
                 states[severity] += 1
@@ -321,7 +318,7 @@ class CapacityUsage(CheckResult):
             label = usage['usage_type'].lower()
             self.perfdata.append("%s=%g%%;%d;%d;0;100" % (label, usage['current_usage_percentage'], usage['min_threshold_percentage'], usage['max_threshold_percentage']))
             # Maybe we need count at some point...
-            #self.perfdata.append("%s_count=%d;;;0;%d" % (label, usage['current_usage_count'], usage['max_supported_count']))
+            # self.perfdata.append("%s_count=%d;;;0;%d" % (label, usage['current_usage_count'], usage['max_supported_count']))
 
         for state in states:
             self.summary.append("%d %s" % (states[state], state.lower()))
@@ -342,7 +339,7 @@ class CapacityUsage(CheckResult):
             self.summary.append("last update older than %s minutes" % (self.max_age))
 
         for usage in self.data['capacity_usage']:
-            severity = usage['severity'] # INFO, WARNING, CRITICAL, ERROR
+            severity = usage['severity']  # INFO, WARNING, CRITICAL, ERROR
 
             if severity == "INFO":
                 state = OK
@@ -413,7 +410,6 @@ def main():
 
     args = parse_args()
     if args.insecure:
-        import urllib3
         urllib3.disable_warnings()
 
     if args.version:
@@ -428,9 +424,9 @@ def main():
         return client.get_alarms().print_and_return()
     elif args.mode == 'capacity-usage':
         return client.get_capacity_usage().print_and_return()
-    else:
-        print("[UNKNOWN] unknown mode %s" % args.mode)
-        return UNKNOWN
+
+    print("[UNKNOWN] unknown mode %s" % args.mode)
+    return UNKNOWN
 
 
 if __package__ == '__main__' or __package__ is None:
