@@ -115,17 +115,17 @@ class Client:
         self.logger.debug("starting API %s request from: %s", method, url)
 
         try:
-            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=self.verify)
+            response = requests.request(method, request_url, auth=HTTPBasicAuth(self.username, self.password), verify=self.verify, timeout=10)
         except requests.exceptions.RequestException as req_exc:
-            raise CriticalException(req_exc)
+            raise CriticalException(req_exc) # pylint: disable=raise-missing-from
 
         if response.status_code != 200:
             raise CriticalException('Request to %s was not successful: %s' % (request_url, response.status_code))
 
         try:
             return response.json()
-        except Exception as e:
-            raise CriticalException('Could not decode API JSON: ' + str(e))
+        except Exception as json_exc:
+            raise CriticalException('Could not decode API JSON: ' + str(json_exc)) # pylint: disable=raise-missing-from
 
     def get_cluster_status(self):
         """
@@ -261,8 +261,8 @@ class Alarms(CheckResult):
         self.summary.append("%d alarms" % count)
         self.perfdata.append("alarms=%d;;;0" % count)
 
-        for state in states:
-            self.summary.append("%d %s" % (states[state], state.lower()))
+        for state, value in states.items():
+            self.summary.append("%d %s" % (value, state.lower()))
 
     def build_status(self):
         states = []
@@ -320,8 +320,8 @@ class CapacityUsage(CheckResult):
             # Maybe we need count at some point...
             # self.perfdata.append("%s_count=%d;;;0;%d" % (label, usage['current_usage_count'], usage['max_supported_count']))
 
-        for state in states:
-            self.summary.append("%d %s" % (states[state], state.lower()))
+        for state, value in states.items():
+            self.summary.append("%d %s" % (value, state.lower()))
 
         if len(states) == 0:
             self.summary.append("no usages")
@@ -420,9 +420,9 @@ def main():
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()
-    elif args.mode == 'alarms':
+    if args.mode == 'alarms':
         return client.get_alarms().print_and_return()
-    elif args.mode == 'capacity-usage':
+    if args.mode == 'capacity-usage':
         return client.get_capacity_usage().print_and_return()
 
     print("[UNKNOWN] unknown mode %s" % args.mode)
@@ -432,17 +432,10 @@ def main():
 if __package__ == '__main__' or __package__ is None:
     try:
         sys.exit(main())
-    except CriticalException as e:
-        print("[CRITICAL] " + str(e))
+    except CriticalException as main_exc:
+        print("[CRITICAL] " + str(main_exc))
         sys.exit(CRITICAL)
-    except Exception:
+    except Exception: # pylint: disable=broad-except
         exception = sys.exc_info()
         print("[UNKNOWN] Unexpected Python error: %s %s" % (exception[0], exception[1]))
-
-        try:
-            import traceback
-            traceback.print_tb(exception[2])
-        except:
-            pass
-
         sys.exit(UNKNOWN)

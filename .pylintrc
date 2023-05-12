@@ -1,0 +1,15 @@
+# pylint config
+# [FORMAT]
+# good-names=m,p,l,ok
+[MESSAGES CONTROL]
+disable=fixme,
+        line-too-long,
+        too-many-locals,
+        too-many-arguments,
+        too-many-statements,
+        too-many-branches,
+        bare-except,
+        missing-module-docstring,
+        missing-function-docstring,
+        missing-class-docstring,
+        consider-using-f-string
