@@ -105,7 +105,7 @@ class Client:
     def request(self, url, method='GET'):
         """
         Basic JSON request handling
-
+s
         Handles authentication and returns the JSON result when successful
         """
 
@@ -120,6 +120,7 @@ class Client:
             raise CriticalException(req_exc) # pylint: disable=raise-missing-from
 
         if response.status_code != 200:
+            # TODO What about 300 Redirects?
             raise CriticalException('Request to %s was not successful: %s' % (request_url, response.status_code))
 
         try:
