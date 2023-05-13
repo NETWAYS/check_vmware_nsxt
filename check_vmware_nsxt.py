@@ -385,38 +385,38 @@ def worst_state(*states):
     return overall
 
 
-def parse_args():
-    args = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
+def commandline(args):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 
-    args.add_argument('--api', '-A', required=True,
+    parser.add_argument('--api', '-A', required=True,
         help='VMware NSX-T URL without any sub-path (e.g. https://vmware-nsx.local)')
+    parser.add_argument('--username', '-u',
+                        help='Username for Basic Auth', required=True)
+    parser.add_argument('--password', '-p',
+                        help='Password for Basic Auth', required=True)
+    parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
+                        help='Check mode to exectue', required=True)
+    parser.add_argument('--max-age', '-M', type=int,
+                        help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
+    parser.add_argument('--insecure',
+                        help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
+    parser.add_argument('--version', '-V',
+                        help='Print version', action='store_true')
 
-    args.add_argument('--username', '-u', help='Username for Basic Auth', required=True)
-    args.add_argument('--password', '-p', help='Password for Basic Auth', required=True)
-
-    args.add_argument('--mode', '-m', help='Check mode', required=True)
-
-    args.add_argument('--max-age', '-M', help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
-
-    args.add_argument('--version', '-V', help='Print version', action='store_true')
-
-    args.add_argument('--insecure', help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
-
-    return args.parse_args()
+    return parser.parse_args(args)
 
 
-def main():
+def main(args):
     fix_tls_cert_store()
 
-    args = parse_args()
     if args.insecure:
         urllib3.disable_warnings()
 
     if args.version:
         print("check_vmware_nsxt version %s" % VERSION)
-        return 0
+        return 3
 
-    client = Client(args.api, args.username, args.password, verify=(not args.insecure), max_age=int(args.max_age))
+    client = Client(args.api, args.username, args.password, verify=(not args.insecure), max_age=args.max_age)
 
     if args.mode == 'cluster-status':
         return client.get_cluster_status().print_and_return()
@@ -429,9 +429,10 @@ def main():
     return UNKNOWN
 
 
-if __package__ == '__main__' or __package__ is None:
+if __package__ == '__main__' or __package__ is None: # pragma: no cover
     try:
-        sys.exit(main())
+        ARGS = commandline(sys.argv[1:])
+        sys.exit(main(ARGS))
     except CriticalException as main_exc:
         print("[CRITICAL] " + str(main_exc))
         sys.exit(CRITICAL)
