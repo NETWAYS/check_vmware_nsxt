@@ -89,8 +89,6 @@ class Client:
     API_PREFIX = '/api/v1/'
 
     def __init__(self, api, username, password, logger=None, verify=True, max_age=5):
-        # TODO: parse and validate url?
-
         self.api = api
         self.username = username
         self.password = password
@@ -105,7 +103,7 @@ class Client:
     def request(self, url, method='GET'):
         """
         Basic JSON request handling
-s
+
         Handles authentication and returns the JSON result when successful
         """
 
