@@ -1,1 +1,1 @@
-requests>=1
+requests>=2
