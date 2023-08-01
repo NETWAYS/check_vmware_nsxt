@@ -10,6 +10,8 @@ import json
 
 sys.path.append('..')
 
+from check_vmware_nsxt import main
+from check_vmware_nsxt import fix_tls_cert_store
 from check_vmware_nsxt import commandline
 from check_vmware_nsxt import worst_state
 from check_vmware_nsxt import time_iso
@@ -18,6 +20,16 @@ from check_vmware_nsxt import Client
 from check_vmware_nsxt import CriticalException
 
 os.environ["TZ"] = "UTC"
+
+class MainTesting(unittest.TestCase):
+
+    @mock.patch('check_vmware_nsxt.Client')
+    def test_main(self, mock_client):
+
+        args = commandline(['-A', 'api', '-u', 'user', '-p', 'password', '-m', 'alarms'])
+        main(args)
+
+        mock_client.assert_called_with('api', 'user', 'password', verify=True, max_age=5)
 
 class CLITesting(unittest.TestCase):
 
@@ -61,6 +73,20 @@ class UtilTesting(unittest.TestCase):
         actual = build_datetime(1683988760)
         expected = datetime.datetime(1970, 1, 20, 11, 46, 28, 760000)
         self.assertEqual(actual, expected)
+
+    @mock.patch('os.stat')
+    def test_fix_tls_cert_store(self, mock_os):
+
+        self.assertIsNone(fix_tls_cert_store(None))
+
+        m = mock.MagicMock()
+        m.st_size = 10
+        mock_os.return_value = m
+
+        fix_tls_cert_store("/tmp/foo")
+
+        mock_os.assert_called_with("/tmp/foo")
+
 
 class ClientTesting(unittest.TestCase):
 

@@ -58,7 +58,7 @@ STATES = {
 }
 
 
-def fix_tls_cert_store():
+def fix_tls_cert_store(cafile_path):
     """
     Ensure we are using the system certstore by default
 
@@ -66,13 +66,14 @@ def fix_tls_cert_store():
     Inspired by https://github.com/psf/requests/issues/2966#issuecomment-614323746
     """
 
-    try:
-        system_ca_store = ssl.get_default_verify_paths().cafile
-        if os.stat(system_ca_store).st_size > 0:
-            requests.utils.DEFAULT_CA_BUNDLE_PATH = system_ca_store
-            requests.adapters.DEFAULT_CA_BUNDLE_PATH = system_ca_store
-    except:
-        pass
+    # Check if we got a CA file path
+    if not cafile_path:
+        return
+
+    # If CA file contains something, set as default
+    if os.stat(cafile_path).st_size > 0:
+        requests.utils.DEFAULT_CA_BUNDLE_PATH = cafile_path
+        requests.adapters.DEFAULT_CA_BUNDLE_PATH = cafile_path
 
 
 class CriticalException(Exception):
@@ -406,7 +407,7 @@ def commandline(args):
 
 
 def main(args):
-    fix_tls_cert_store()
+    fix_tls_cert_store(ssl.get_default_verify_paths().cafile)
 
     if args.insecure:
         urllib3.disable_warnings()
