@@ -151,7 +151,7 @@ class ClientTesting(unittest.TestCase):
         expected = 1
 
         self.assertEqual(actual, expected)
-        mock_print.assert_called_with('[WARNING] 1 alarms - 1 medium\n\n[MEDIUM] (2021-04-26 15:25:18) (node1) Intelligence Health/Storage Latency High - Intelligence node storage latency is high.\n| alarms=1;;;0')
+        mock_print.assert_called_with('[WARNING] 1 alarms - 1 medium\n\n[MEDIUM] (2021-04-26 15:25:18) (node1) Intelligence Health/Storage Latency High - Intelligence node storage latency is high.\n| alarms=1;;;0 alarms.medium=1;;;0')
 
     @mock.patch('builtins.print')
     @mock.patch('requests.request')

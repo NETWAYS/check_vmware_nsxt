@@ -263,6 +263,8 @@ class Alarms(CheckResult):
 
         for state, value in states.items():
             self.summary.append("%d %s" % (value, state.lower()))
+            self.perfdata.append("alarms.%s=%d;;;0" % (state.lower(), value))
+
 
     def build_status(self):
         states = []
@@ -395,11 +397,11 @@ def commandline(args):
     parser.add_argument('--password', '-p',
                         help='Password for Basic Auth', required=True)
     parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
-                        help='Check mode to exectue', required=True)
+                        help='Check mode to exectue. Hint: alarms will only include open alarms.', required=True)
     parser.add_argument('--max-age', '-M', type=int,
                         help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
     parser.add_argument('--insecure',
-                        help='Do not verify TLS certificate. Be careful with this option, please', action='store_true', required=False)
+                        help='Do not verify TLS certificate', action='store_true', required=False)
     parser.add_argument('--version', '-V',
                         help='Print version', action='store_true')
 
