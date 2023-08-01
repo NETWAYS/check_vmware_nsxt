@@ -16,7 +16,7 @@ Please prefer installation via system packages like `python3-requests`.
 
 Alternatively you can install with pip:
 
-    pip3 install requests
+    pip3 install -r requirements.txt
 
 Make sure to modify the shebang to your environment, one of the following should be fine.
 
@@ -43,11 +43,22 @@ optional arguments:
   --password PASSWORD, -p PASSWORD
                         Password for Basic Auth
   --mode MODE, -m MODE  Check mode
+  --exclude [EXCLUDE ...]
+                        Exclude alarms or usage from the check results. Can be used multiple times and supports regular expressions.
   --max-age MAX_AGE, -M MAX_AGE
                         Max age in minutes for capacity usage updates. Defaults to 5
   --version, -V         Print version
   --insecure            Do not verify TLS certificate. Be careful with this option, please
 ```
+
+The `--exclude` parameter will match against alarms and capacity-usage. It uses the following string representation (whitespaces included) to match against:
+
+* alarms: `severity` `node_display_name` `feature_display_name` `event_type_display_name`
+* capacity-usage: `severity` `display_name`
+
+## Examples
+
+Mode: cluster-status
 
 ```
 $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode cluster-status
@@ -66,13 +77,24 @@ $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password 
 | nodes_online=3;;;0
 ```
 
+Mode: alarms
+
 ```
 $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms
 [WARNING] 1 alarms - 1 medium
 
 [MEDIUM] (2021-04-26 17:25:18) (node1) Intelligence Health/Storage Latency High - Intelligence node storage latency is high.
+| alarms=1;;;0 alarms.medium=1;;;0
+```
+
+```
+$ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms --exclude "LOW"
+# Excluded alerts will still be counted, but are not factored into the exit code
+[OK] 1 alarms
 | alarms=1;;;0
 ```
+
+Mode: capacity-usage
 
 ```
 $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode capacity-usage
