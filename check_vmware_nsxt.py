@@ -263,6 +263,8 @@ class Alarms(CheckResult):
 
         for state, value in states.items():
             self.summary.append("%d %s" % (value, state.lower()))
+            self.perfdata.append("alarms.%s=%d;;;0" % (state.lower(), value))
+
 
     def build_status(self):
         states = []
