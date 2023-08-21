@@ -37,6 +37,7 @@ import argparse
 import logging
 import datetime
 import ssl
+import re
 from urllib.parse import urljoin
 import urllib3
 import requests
@@ -127,26 +128,26 @@ class Client:
         except Exception as json_exc:
             raise CriticalException('Could not decode API JSON: ' + str(json_exc)) # pylint: disable=raise-missing-from
 
-    def get_cluster_status(self):
+    def get_cluster_status(self, excludes=None):
         """
         GET and build ClusterStatus
         """
-        return ClusterStatus(self.request('cluster/status'))
+        return ClusterStatus(self.request('cluster/status'), excludes)
 
-    def get_alarms(self):
+    def get_alarms(self, excludes=None):
         """
         GET and build Alarms
         """
         status = "OPEN"
         # status = "RESOLVED" # for testing
         result = self.request('alarms?page_size=100&status=%s&sort_ascending=false' % status)
-        return Alarms(result['results'])
+        return Alarms(data=result['results'], excludes=excludes)
 
-    def get_capacity_usage(self):
+    def get_capacity_usage(self, excludes=None):
         """
         GET and build CapacityUsage
         """
-        return CapacityUsage(self.request('capacity/usage'), self.max_age)
+        return CapacityUsage(self.request('capacity/usage'), self.max_age, excludes)
 
 
 class CheckResult:
@@ -203,9 +204,12 @@ class ClusterStatus(CheckResult):
     https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_ReadClusterStatus.html
     """
 
-    def __init__(self, data):
+    def __init__(self, data, excludes):
         super().__init__()
         self.data = data
+        self.excludes = excludes
+        if excludes is None:
+            self.excludes = []
 
     def build_output(self):
         for area in ['control_cluster_status', 'mgmt_cluster_status', 'control_cluster_status']:
@@ -234,14 +238,33 @@ class Alarms(CheckResult):
     https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetAlarms.html
     """
 
-    def __init__(self, data):
+    def __init__(self, data, excludes):
         super().__init__()
         self.data = data
+        self.excludes = excludes
+        if excludes is None:
+            self.excludes = []
+
+    def _is_excluded(self, alarm):
+        # to exclude via --exclude
+        identifier = "%s %s %s %s" % (
+            alarm['severity'],
+            alarm['node_display_name'],
+            alarm['feature_display_name'],
+            alarm['event_type_display_name'])
+        for exclude in self.excludes:
+            regexp = re.compile(exclude)
+            if bool(regexp.search(identifier)):
+                return True
+        return False
 
     def build_output(self):
         states = {}
 
         for alarm in self.data:
+            if self._is_excluded(alarm):
+                continue
+
             severity = alarm['severity']
             if severity in states:
                 states[severity] += 1
@@ -270,7 +293,11 @@ class Alarms(CheckResult):
         states = []
 
         for alarm in self.data:
-            state = WARNING if alarm['severity'] in ['MEDIUM', 'LOW'] else CRITICAL  # CRITICAL, HIGH
+            if self._is_excluded(alarm):
+                continue
+
+            # HIGH == CRITICAL
+            state = WARNING if alarm['severity'] in ['MEDIUM', 'LOW'] else CRITICAL
             states.append(state)
 
         if len(states) > 0:
@@ -285,15 +312,33 @@ class CapacityUsage(CheckResult):
     https://vdc-download.vmware.com/vmwb-repository/dcr-public/787988e9-6348-4b2a-8617-e6d672c690ee/a187360c-77d5-4c0c-92a8-8e07aa161a27/api_includes/method_GetProtonCapacityUsage.html
     """
 
-    def __init__(self, data, max_age):
+    def __init__(self, data, max_age, excludes):
         super().__init__()
         self.data = data
         self.max_age = max_age
+        self.excludes = excludes
+        if excludes is None:
+            self.excludes = []
+
+    def _is_excluded(self, usage):
+        # to exclude via --exclude
+        identifier = "%s %s" % (
+            usage['severity'],
+            usage['display_name'])
+
+        for exclude in self.excludes:
+            regexp = re.compile(exclude)
+            if bool(regexp.search(identifier)):
+                return True
+        return False
 
     def build_output(self):
         states = {}
 
         for usage in self.data['capacity_usage']:
+            if self._is_excluded(usage):
+                continue
+
             severity = usage['severity']  # INFO, WARNING, CRITICAL, ERROR
 
             if severity in states:
@@ -341,6 +386,9 @@ class CapacityUsage(CheckResult):
             self.summary.append("last update older than %s minutes" % (self.max_age))
 
         for usage in self.data['capacity_usage']:
+            if self._is_excluded(usage):
+                continue
+
             severity = usage['severity']  # INFO, WARNING, CRITICAL, ERROR
 
             if severity == "INFO":
@@ -398,6 +446,8 @@ def commandline(args):
                         help='Password for Basic Auth', required=True)
     parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
                         help='Check mode to exectue. Hint: alarms will only include open alarms.', required=True)
+    parser.add_argument('--exclude', nargs='*', action='extend', type=str,
+                        help="Exclude alarms or usage from the check results. Can be used multiple times and supports regular expressions.")
     parser.add_argument('--max-age', '-M', type=int,
                         help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
     parser.add_argument('--insecure',
@@ -421,11 +471,11 @@ def main(args):
     client = Client(args.api, args.username, args.password, verify=(not args.insecure), max_age=args.max_age)
 
     if args.mode == 'cluster-status':
-        return client.get_cluster_status().print_and_return()
+        return client.get_cluster_status(args.exclude).print_and_return()
     if args.mode == 'alarms':
-        return client.get_alarms().print_and_return()
+        return client.get_alarms(args.exclude).print_and_return()
     if args.mode == 'capacity-usage':
-        return client.get_capacity_usage().print_and_return()
+        return client.get_capacity_usage(args.exclude).print_and_return()
 
     print("[UNKNOWN] unknown mode %s" % args.mode)
     return UNKNOWN
