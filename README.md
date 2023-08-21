@@ -18,23 +18,11 @@ Alternatively you can install with pip:
 
     pip3 install -r requirements.txt
 
-Make sure to modify the shebang to your environment, one of the following should be fine.
-
-    #!/usr/bin/env python3
-    #!/usr/bin/python3
-
-Then copy the file to your plugin dir:
-
-    cp check_vmware_nsxt.py /usr/lib*/nagios/plugins/check_vmware_nsxt
-    chmod 755 /usr/lib*/nagios/plugins/check_vmware_nsxt
-
-Also see the [Icinga 2 example command](icinga2/command.conf).
-
 ## Usage
 
 ```
-$ ./check_vmware_nsxt.py --help
-...
+check_vmware_nsxt.py --help
+
 optional arguments:
   -h, --help            show this help message and exit
   --api API, -A API     VMware NSX-T URL without any sub-path (e.g. https://vmware-nsx.local)
@@ -44,7 +32,8 @@ optional arguments:
                         Password for Basic Auth
   --mode MODE, -m MODE  Check mode
   --exclude [EXCLUDE ...]
-                        Exclude alarms or usage from the check results. Can be used multiple times and supports regular expressions.
+                        Exclude alarms or usage from the check results.
+                        Can be used multiple times and supports regular expressions.
   --max-age MAX_AGE, -M MAX_AGE
                         Max age in minutes for capacity usage updates. Defaults to 5
   --version, -V         Print version
@@ -61,7 +50,8 @@ The `--exclude` parameter will match against alarms and capacity-usage. It uses 
 Mode: cluster-status
 
 ```
-$ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode cluster-status
+check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode cluster-status
+
 [OK] control_cluster_status=STABLE - mgmt_cluster_status=STABLE - control_cluster_status=STABLE - nodes_online=3
 
 [OK] DATASTORE: STABLE - 3 members
@@ -80,7 +70,8 @@ $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password 
 Mode: alarms
 
 ```
-$ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms
+check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms
+
 [WARNING] 1 alarms - 1 medium
 
 [MEDIUM] (2021-04-26 17:25:18) (node1) Intelligence Health/Storage Latency High - Intelligence node storage latency is high.
@@ -88,8 +79,9 @@ $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password 
 ```
 
 ```
-$ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms --exclude "LOW"
-# Excluded alerts will still be counted, but are not factored into the exit code
+check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode alarms --exclude "LOW"
+# Hint: Excluded alerts will still be counted, but are not factored into the exit code
+
 [OK] 1 alarms
 | alarms=1;;;0
 ```
@@ -97,7 +89,8 @@ $ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password 
 Mode: capacity-usage
 
 ```
-$ ./check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode capacity-usage
+check_vmware_nsxt.py --api 'https://vmware-nsx.local' -u icinga -p password --mode capacity-usage
+
 [OK] 28 info - no usages - last update: 2021-04-29 19:06:12
 
 [OK] [INFO] System-wide NAT rules: 0 of 25000 (0%)

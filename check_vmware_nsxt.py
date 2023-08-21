@@ -44,7 +44,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 
-VERSION = '0.1.2'
+__version__ = '0.2.0'
 
 OK = 0
 WARNING = 1
@@ -465,7 +465,7 @@ def main(args):
         urllib3.disable_warnings()
 
     if args.version:
-        print("check_vmware_nsxt version %s" % VERSION)
+        print(f"check_vmware_nsxt version {__version__}")
         return 3
 
     client = Client(args.api, args.username, args.password, verify=(not args.insecure), max_age=args.max_age)
