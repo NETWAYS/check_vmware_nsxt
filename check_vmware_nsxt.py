@@ -436,14 +436,24 @@ def worst_state(*states):
 
 
 def commandline(args):
+    """
+    Parse commandline arguments.
+    """
+    def environ_or_required(key):
+        return ({'default': os.environ.get(key)} if os.environ.get(key) else {'required': True})
+
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawTextHelpFormatter)
 
-    parser.add_argument('--api', '-A', required=True,
-        help='VMware NSX-T URL without any sub-path (e.g. https://vmware-nsx.local)')
+    parser.add_argument('--api', '-A',
+                        **environ_or_required('CHECK_VMWARE_NSXT_API_URL'),
+                        help='VMware NSX-T URL without any sub-path (e.g. https://vmware-nsx.local)')
     parser.add_argument('--username', '-u',
-                        help='Username for Basic Auth', required=True)
+                        **environ_or_required('CHECK_VMWARE_NSXT_API_USER'),
+                        help='Username for Basic Auth')
     parser.add_argument('--password', '-p',
-                        help='Password for Basic Auth', required=True)
+                        **environ_or_required('CHECK_VMWARE_NSXT_API_PASSWORD'),
+                        help='Password for Basic Auth')
+
     parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
                         help='Check mode to exectue. Hint: alarms will only include open alarms.', required=True)
     parser.add_argument('--exclude', nargs='*', action='extend', type=str,

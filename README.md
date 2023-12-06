@@ -27,9 +27,9 @@ optional arguments:
   -h, --help            show this help message and exit
   --api API, -A API     VMware NSX-T URL without any sub-path (e.g. https://vmware-nsx.local)
   --username USERNAME, -u USERNAME
-                        Username for Basic Auth
+                        Username for Basic Auth (CHECK_VMWARE_NSXT_API_USER)
   --password PASSWORD, -p PASSWORD
-                        Password for Basic Auth
+                        Password for Basic Auth (CHECK_VMWARE_NSXT_API_PASSWORD)
   --mode MODE, -m MODE  Check mode
   --exclude [EXCLUDE ...]
                         Exclude alarms or usage from the check results.
@@ -44,6 +44,8 @@ The `--exclude` parameter will match against alarms and capacity-usage. It uses 
 
 * alarms: `severity` `node_display_name` `feature_display_name` `event_type_display_name`
 * capacity-usage: `severity` `display_name`
+
+Various flags can be set with environment variables, refer to the help to see which flags.
 
 ## Examples
 

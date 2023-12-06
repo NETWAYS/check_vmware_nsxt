@@ -3,7 +3,6 @@
 import unittest
 import unittest.mock as mock
 import sys
-
 import os
 import datetime
 import json
@@ -41,6 +40,17 @@ class CLITesting(unittest.TestCase):
         self.assertEqual(actual.mode, 'alarms')
         self.assertFalse(actual.insecure)
         self.assertEqual(actual.max_age, 5)
+
+    def test_commandline_fromenv(self):
+        os.environ['CHECK_VMWARE_NSXT_API_USER'] = 'GEH'
+        os.environ['CHECK_VMWARE_NSXT_API_PASSWORD'] = 'HEIM'
+
+        actual = commandline(['-A', 'api', '-m', 'alarms'])
+        self.assertEqual(actual.username, 'GEH')
+        self.assertEqual(actual.password, 'HEIM')
+
+        os.unsetenv('CHECK_VMWARE_NSXT_API_USER')
+        os.unsetenv('CHECK_VMWARE_NSXT_API_PASSWORD')
 
 class UtilTesting(unittest.TestCase):
 
