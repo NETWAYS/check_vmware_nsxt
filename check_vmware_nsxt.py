@@ -456,7 +456,7 @@ def commandline(args):
 
     parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
                         help='Check mode to exectue. Hint: alarms will only include open alarms.', required=True)
-    parser.add_argument('--exclude', nargs='*', action='extend', type=str,
+    parser.add_argument('--exclude', nargs='*', action='append', type=str,
                         help="Exclude alarms or usage from the check results. Can be used multiple times and supports regular expressions.")
     parser.add_argument('--max-age', '-M', type=int,
                         help='Max age in minutes for capacity usage updates. Defaults to 5', default=5, required=False)
@@ -465,7 +465,12 @@ def commandline(args):
     parser.add_argument('--version', '-V',
                         help='Print version', action='store_true')
 
-    return parser.parse_args(args)
+    p = parser.parse_args(args)
+
+    if p.exclude:
+        p.exclude = [item for items in p.exclude for item in items]
+
+    return p
 
 
 def main(args):
