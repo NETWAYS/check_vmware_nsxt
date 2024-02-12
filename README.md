@@ -1,3 +1,7 @@
+# This branch is not maintained. Use the main branch instead.
+
+It only contains a patch to work with Python<3.8.
+
 # check_vmware_nsxt
 
 Icinga check plugin for the VMware NSX-T REST API.
