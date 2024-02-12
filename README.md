@@ -10,7 +10,7 @@ Supported Modes:
 
 ## Installation
 
-Python 3 is required, and you need the Python [requests](https://pypi.org/project/requests/) module.
+Python 3.8 is required, and you need the Python [requests](https://pypi.org/project/requests/) module.
 
 Please prefer installation via system packages like `python3-requests`.
 
