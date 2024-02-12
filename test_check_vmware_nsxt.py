@@ -41,6 +41,10 @@ class CLITesting(unittest.TestCase):
         self.assertFalse(actual.insecure)
         self.assertEqual(actual.max_age, 5)
 
+    def test_commandline_exclude(self):
+        actual = commandline(['-A', 'api', '-u', 'user', '-p', 'password', '-m', 'alarms', '--exclude', 'foo', '--exclude', 'bar'])
+        self.assertEqual(actual.exclude, ['foo', 'bar'])
+
     def test_commandline_fromenv(self):
         os.environ['CHECK_VMWARE_NSXT_API_USER'] = 'GEH'
         os.environ['CHECK_VMWARE_NSXT_API_PASSWORD'] = 'HEIM'
