@@ -455,7 +455,7 @@ def commandline(args):
                         help='Password for Basic Auth')
 
     parser.add_argument('--mode', '-m', choices=['cluster-status', 'alarms', 'capacity-usage'],
-                        help='Check mode to exectue. Hint: alarms will only include open alarms.', required=True)
+                        help='Check mode to execute. Hint: alarms will only include open alarms.', required=True)
     parser.add_argument('--exclude', nargs='*', action='extend', type=str,
                         help="Exclude alarms or usage from the check results. Can be used multiple times and supports regular expressions.")
     parser.add_argument('--max-age', '-M', type=int,
